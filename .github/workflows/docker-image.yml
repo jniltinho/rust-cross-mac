@@ -1,0 +1,58 @@
+name: Create Docker Image
+
+on:
+  push:
+    branches:
+      - build
+
+env:
+  GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+  AUTHOR: '${{github.event.pusher.name}}\<${{github.event.pusher.email}}\>'
+  AUTHOR_URL: 'https://github.com/${{github.actor}}'
+  IMAGE_NAME: 'ghcr.io/${{github.actor}}/rust-cross-mac'
+
+
+
+jobs:
+  build-bin:
+    runs-on: ubuntu-latest
+    container:
+      image: rust:slim-bullseye
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: Compile Bin
+      run: bash compile-bin.sh
+    - name: Archive production artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: compile-bin.tar.gz
+        path: files/compile-bin.tar.gz
+
+
+  build-docker:
+    needs: build-bin
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Download a single artifact
+      uses: actions/download-artifact@v3
+      with:
+        name: compile-bin.tar.gz
+        path: files/compile-bin.tar.gz
+
+    - name: Docker Login
+      uses: docker/login-action@v1.14.1
+      with:
+        registry: ghcr.io
+        username: ${{github.repository_owner}}
+        password: ${{secrets.GH_PACKAGES_TOKEN}}
+    - run: |
+        docker build --no-cache . -f Dockerfile -t ${IMAGE_NAME}:latest
+        docker tag ${IMAGE_NAME}:latest ${IMAGE_NAME}:${GITHUB_SHA::6}
+
+    - run: |
+        docker push ${IMAGE_NAME}:${GITHUB_SHA::6}
+        docker push ${IMAGE_NAME}:latest
