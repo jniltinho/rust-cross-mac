@@ -12,7 +12,7 @@ ENV PATH $PATH:/opt/osxcross/target/bin
 
 # Install build tools
 RUN apt-get update -qq
-RUN apt-get install -yqq llvm-dev libclang-dev zip unzip clang libxml2-dev make curl git file libz-dev zlib1g-dev libssl-dev gcc-mingw-w64-x86-64 \
+RUN apt-get install -yqq llvm-dev libclang-dev pkg-config clang libxml2-dev make curl git file libz-dev zlib1g-dev libssl-dev gcc-mingw-w64-x86-64 \
     && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /var/cache/apt/archive/*.deb
 
 COPY files/compile-bin.tar.gz /opt/
