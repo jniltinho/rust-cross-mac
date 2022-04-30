@@ -48,7 +48,7 @@ jobs:
       with:
         registry: ghcr.io
         username: ${{github.repository_owner}}
-        password: ${{secrets.GH_PACKAGES_TOKEN}}
+        password: ${{secrets.GITHUB_TOKEN}}
     - run: |
         docker build --no-cache . -f Dockerfile -t ${IMAGE_NAME}:latest
         docker tag ${IMAGE_NAME}:latest ${IMAGE_NAME}:${GITHUB_SHA::6}
