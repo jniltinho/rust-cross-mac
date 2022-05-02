@@ -17,8 +17,8 @@ cd $MACOSX_CROSS_COMPILER
 git clone https://github.com/tpoechtrager/osxcross
 cd osxcross
 curl -skL https://github.com/phracker/MacOSX-SDKs/releases/download/11.3/MacOSX10.13.sdk.tar.xz -o tarballs/MacOSX10.13.sdk.tar.xz
-UNATTENDED=yes OSX_VERSION_MIN=10.7 ./build.sh
-rm -rf tarballs/* .git
+UNATTENDED=1 OSX_VERSION_MIN=10.7 ./build.sh
+find . -maxdepth 1 -type f -delete; rm -rf .git tarballs
 
 cd /root
 curl -skLO https://github.com/upx/upx/releases/download/v3.96/upx-3.96-amd64_linux.tar.xz
