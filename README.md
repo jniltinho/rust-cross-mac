@@ -20,7 +20,7 @@ cd osxcross
 wget -c https://github.com/phracker/MacOSX-SDKs/releases/download/11.3/MacOSX10.13.sdk.tar.xz
 mv MacOSX10.*.sdk.tar.xz tarballs/
 UNATTENDED=yes OSX_VERSION_MIN=10.7 ./build.sh
-rm -rf tarballs/* .git
+find . -maxdepth 1 -type f -delete; rm -rf .git tarballs
 
 cd /root
 echo '[target.x86_64-apple-darwin]
