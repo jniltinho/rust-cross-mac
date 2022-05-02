@@ -4,10 +4,8 @@ ENV TZ America/Sao_Paulo
 # docker build --no-cache -t ghcr.io/jniltinho/rust-cross-mac -f Dockerfile .
 # docker run -it --rm -v $(pwd):/opt/rust/build ghcr.io/jniltinho/rust-cross-mac bash
 
-RUN rm /bin/sh && ln -s /bin/bash /bin/sh; mkdir -p /opt/rust \
-    && sed -i 's|# export LS_OPTIONS|export LS_OPTIONS|' /root/.bashrc \
-    && sed -i 's|# alias|alias|' /root/.bashrc \
-    && source /root/.bashrc
+RUN rm /bin/sh && ln -s /bin/bash /bin/sh; mkdir -p /opt/rust
+RUN sed -i 's|# export LS_OPTIONS|export LS_OPTIONS|' /root/.bashrc; sed -i 's|# alias|alias|' /root/.bashrc; source /root/.bashrc
 
 ENV DEBIAN_FRONTEND noninteractive
 ENV MACOSX_CROSS_COMPILER=/opt
