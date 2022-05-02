@@ -24,9 +24,11 @@ rm -f /opt/osxcross/tarballs/MacOSX*.sdk.tar.xz
 curl -skLO https://github.com/upx/upx/releases/download/v3.96/upx-3.96-amd64_linux.tar.xz
 tar -xf upx-3.9*-amd64_linux.tar.xz; cp upx-3.9*-amd64_linux/upx $FOLDER_BIN/
 chmod +x $FOLDER_BIN/upx
+rm -rf upx-3.9*-amd64*
 
 curl -skLO https://github.com/cli/cli/releases/download/v2.9.0/gh_2.9.0_linux_amd64.tar.gz
 tar -xf gh_*_linux_amd64.tar.gz; mv gh_*_linux_amd64/bin/gh $FOLDER_BIN/
+rm -rf gh_*_*
 
 cargo install --git https://github.com/jniltinho/retry-cli.git
 cargo install --git https://github.com/jniltinho/retry-cmd.git
