@@ -17,8 +17,7 @@ export MACOSX_CROSS_COMPILER=/opt
 cd $MACOSX_CROSS_COMPILER
 git clone https://github.com/tpoechtrager/osxcross
 cd osxcross
-wget -c https://github.com/phracker/MacOSX-SDKs/releases/download/11.3/MacOSX10.13.sdk.tar.xz
-mv MacOSX10.*.sdk.tar.xz tarballs/
+curl -skL https://github.com/phracker/MacOSX-SDKs/releases/download/11.3/MacOSX10.13.sdk.tar.xz -o tarballs/MacOSX10.13.sdk.tar.xz
 UNATTENDED=yes OSX_VERSION_MIN=10.7 ./build.sh
 find . -maxdepth 1 -type f -delete; rm -rf .git tarballs
 
