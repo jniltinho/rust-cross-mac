@@ -30,11 +30,14 @@ chmod +x $FOLDER_BIN/upx
 curl -skLO https://github.com/cli/cli/releases/download/v2.9.0/gh_2.9.0_linux_amd64.tar.gz
 tar -xf gh_*_linux_amd64.tar.gz; mv gh_*_linux_amd64/bin/gh $FOLDER_BIN/
 
+curl -skLO https://github.com/zyedidia/micro/releases/download/v2.0.10/micro-2.0.10-linux64-static.tar.gz
+tar -xf micro-*-linux64-static.tar.gz; mv micro-*/micro $FOLDER_BIN/
+
 cargo install --git https://github.com/jniltinho/retry-cli.git
 cargo install --git https://github.com/jniltinho/retry-cmd.git
 cp /usr/local/cargo/bin/{retry-cli,retry-cmd} $FOLDER_BIN/
-chmod +x $FOLDER_BIN/{gh,retry-cli,retry-cmd}
-upx --best --lzma $FOLDER_BIN/{gh,retry-cli,retry-cmd}
+chmod +x $FOLDER_BIN/*
+upx --best --lzma $FOLDER_BIN/*
 
 cp -aR /opt/osxcross $FOLDER/
 cd $FOLDER ; tar -czf compile-bin.tar.gz osxcross bin ; rm -rf osxcross bin
