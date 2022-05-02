@@ -13,7 +13,6 @@ apt-get install -y gcc g++ libmpc-dev libmpfr-dev libgmp-dev make cmake git lzma
 
 # change the following path to match your setup
 export MACOSX_CROSS_COMPILER=/opt
-export FOLDER_OSX_CROSS=/opt/osxcross
 
 cd $MACOSX_CROSS_COMPILER
 git clone https://github.com/tpoechtrager/osxcross
@@ -21,19 +20,15 @@ cd osxcross
 wget -c https://github.com/phracker/MacOSX-SDKs/releases/download/11.3/MacOSX10.13.sdk.tar.xz
 mv MacOSX10.*.sdk.tar.xz tarballs/
 UNATTENDED=yes OSX_VERSION_MIN=10.7 ./build.sh
+rm -rf tarballs/* .git
 
 cd /root
-mv $MACOSX_CROSS_COMPILER/osxcross $MACOSX_CROSS_COMPILER/osxcross.old
-mkdir -p $FOLDER_OSX_CROSS
-mv $MACOSX_CROSS_COMPILER/osxcross.old/build $FOLDER_OSX_CROSS/
-mv $MACOSX_CROSS_COMPILER/osxcross.old/target $FOLDER_OSX_CROSS/
-
 echo '[target.x86_64-apple-darwin]
 linker = "x86_64-apple-darwin17-clang"
-ar = "x86_64-apple-darwin17-ar"' > $FOLDER_OSX_CROSS/cargo_config
-echo >> $FOLDER_OSX_CROSS/cargo_config
+ar = "x86_64-apple-darwin17-ar"' > $MACOSX_CROSS_COMPILER/osxcross/cargo_config
+echo >> $MACOSX_CROSS_COMPILER/osxcross/cargo_config
 
-cat $FOLDER_OSX_CROSS/cargo_config
+cat $MACOSX_CROSS_COMPILER/osxcross/cargo_config
 
 echo '#!/usr/bin/env bash
 MACOS_TARGET="x86_64-apple-darwin"
@@ -56,7 +51,7 @@ rustup target add x86_64-unknown-linux-musl
 cd $HOME
 cargo new hello_cargo
 cd hello_cargo
-mkdir -p .cargo ; cp $MACOSX_CROSS_COMPILER/rust/cargo_config .cargo/config
+mkdir -p .cargo ; cp $MACOSX_CROSS_COMPILER/osxcross/cargo_config .cargo/config
 cargo build --release --target x86_64-apple-darwin
 cargo build --release --target x86_64-pc-windows-gnu
 cargo build --release --target x86_64-unknown-linux-musl
