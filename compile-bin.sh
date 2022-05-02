@@ -4,10 +4,10 @@
 
 FOLDER=$(pwd)/files
 FOLDER_BIN=$(pwd)/files/bin
-
 mkdir -p $FOLDER_BIN
 
 export MACOSX_CROSS_COMPILER=/opt
+export $FOLDER_OSX_CROSS=/opt/osxcross
 export PATH=$PATH:/opt/osxcross/target/bin:$FOLDER_BIN
 
 # Install build tools
@@ -22,9 +22,9 @@ UNATTENDED=yes OSX_VERSION_MIN=10.7 ./build.sh
 
 cd /root
 mv $MACOSX_CROSS_COMPILER/osxcross $MACOSX_CROSS_COMPILER/osxcross.old
-mkdir -p $MACOSX_CROSS_COMPILER/osxcross
-mv $MACOSX_CROSS_COMPILER/osxcross.old/build $MACOSX_CROSS_COMPILER/osxcross/
-mv $MACOSX_CROSS_COMPILER/osxcross.old/target $MACOSX_CROSS_COMPILER/osxcross/
+mkdir -p $FOLDER_OSX_CROSS
+mv $MACOSX_CROSS_COMPILER/osxcross.old/build $FOLDER_OSX_CROSS/
+mv $MACOSX_CROSS_COMPILER/osxcross.old/target $FOLDER_OSX_CROSS/
 
 curl -skLO https://github.com/upx/upx/releases/download/v3.96/upx-3.96-amd64_linux.tar.xz
 tar -xf upx-3.9*-amd64_linux.tar.xz; cp upx-3.9*-amd64_linux/upx $FOLDER_BIN/
