@@ -9,7 +9,7 @@
 # make sure you have a proper C/C++ native compiler first, as a suggestion:
 apt-get update
 apt-get install -y llvm-dev libclang-dev clang libxml2-dev zlib1g-dev libssl-dev build-essential
-apt-get install -y gcc g++ libmpc-dev libmpfr-dev libgmp-dev make cmake git lzma-dev patch mingw-w64
+apt-get install -y gcc g++ libmpc-dev libmpfr-dev libgmp-dev make cmake git lzma-dev patch gcc-mingw-w64-x86-64
 
 # change the following path to match your setup
 export MACOSX_CROSS_COMPILER=/opt
