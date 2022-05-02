@@ -12,9 +12,8 @@ apt-get install -y llvm-dev libclang-dev clang libxml2-dev zlib1g-dev libssl-dev
 apt-get install -y gcc g++ libmpc-dev libmpfr-dev libgmp-dev make cmake git lzma-dev patch mingw-w64
 
 # change the following path to match your setup
-export MACOSX_CROSS_COMPILER=/tmp
+export MACOSX_CROSS_COMPILER=/opt
 export FOLDER_OSX_CROSS=/opt/osxcross
-mkdir -p $FOLDER_OSX_CROSS
 
 cd $MACOSX_CROSS_COMPILER
 git clone https://github.com/tpoechtrager/osxcross
@@ -22,9 +21,12 @@ cd osxcross
 wget -c https://github.com/phracker/MacOSX-SDKs/releases/download/11.3/MacOSX10.13.sdk.tar.xz
 mv MacOSX10.*.sdk.tar.xz tarballs/
 UNATTENDED=yes OSX_VERSION_MIN=10.7 ./build.sh
-mv $MACOSX_CROSS_COMPILER/osxcross/build $FOLDER_OSX_CROSS/
-mv $MACOSX_CROSS_COMPILER/osxcross/target $FOLDER_OSX_CROSS/
 
+cd /root
+mv $MACOSX_CROSS_COMPILER/osxcross $MACOSX_CROSS_COMPILER/osxcross.old
+mkdir -p $FOLDER_OSX_CROSS
+mv $MACOSX_CROSS_COMPILER/osxcross.old/build $FOLDER_OSX_CROSS/
+mv $MACOSX_CROSS_COMPILER/osxcross.old/target $FOLDER_OSX_CROSS/
 
 echo '[target.x86_64-apple-darwin]
 linker = "x86_64-apple-darwin17-clang"
