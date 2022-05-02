@@ -8,7 +8,6 @@ RUN rm /bin/sh && ln -s /bin/bash /bin/sh; mkdir -p /opt/rust
 RUN sed -i 's|# export LS_OPTIONS|export LS_OPTIONS|' /root/.bashrc; sed -i 's|# alias|alias|' /root/.bashrc; source /root/.bashrc
 
 ENV DEBIAN_FRONTEND noninteractive
-ENV MACOSX_CROSS_COMPILER=/opt
 ENV PATH $PATH:/opt/osxcross/target/bin
 
 # Install build tools
